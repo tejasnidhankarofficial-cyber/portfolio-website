@@ -212,7 +212,7 @@ function Portfolio({ theme, setTheme }) {
       <header className="nav">
         <a href="#top" className="brand" aria-label="Tejas Nidhankar, home"><img className="logo" src="/logo.jpg" alt="" width="48" height="48" /></a>
         <nav>
-          {['projects', 'about', 'skills', 'journey', 'writing', 'certifications', 'contact'].map((s) => (
+          {['about', 'projects', 'writing', 'skills', 'certifications', 'journey', 'contact'].map((s) => (
             <a key={s} href={`#${s}`}>{s}</a>
           ))}
         </nav>
@@ -234,6 +234,11 @@ function Portfolio({ theme, setTheme }) {
             <Socials />
           </div>
           <img className="avatar" src="/profile.jpg" alt={`Portrait of ${profile.name}`} width="200" height="200" />
+        </section>
+
+        <section id="about" className="section">
+          <Heading>About Me</Heading>
+          {profile.about.map((p) => <p key={p}>{p}</p>)}
         </section>
 
         <section id="projects" className="section">
@@ -259,9 +264,19 @@ function Portfolio({ theme, setTheme }) {
           </div>
         </section>
 
-        <section id="about" className="section">
-          <Heading>About Me</Heading>
-          {profile.about.map((p) => <p key={p}>{p}</p>)}
+        <section id="writing" className="section">
+          <Heading>Writing</Heading>
+          <p className="muted pub-line"><img className="pub-logo" src="/towards-ai.png" alt="" width="22" height="22" /> Published in the Towards AI publication on Medium.</p>
+          <div className="grid two-col">
+            {articles.map((a) => (
+              <article key={a.title} className="card col">
+                <div className="meta pub-meta"><img className="pub-logo" src="/towards-ai.png" alt="Towards AI logo" width="22" height="22" />{a.publication} · {a.series}</div>
+                <h4>{a.title}</h4>
+                <p>{a.description}</p>
+                <p className="links"><a href={a.link} target="_blank" rel="noreferrer"><FaMedium /> Read on Medium →</a></p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section id="skills" className="section">
@@ -276,60 +291,6 @@ function Portfolio({ theme, setTheme }) {
               </ul>
             </div>
           ))}
-        </section>
-
-        <section id="journey" className="section">
-          <Heading>Experience &amp; Education</Heading>
-          <h3 className="sub">Experience</h3>
-          <ol className="timeline">
-            {experience.map((e, i) => (
-              <li key={e.role} className="card">
-                <span className="num">{String(i + 1).padStart(2, '0')}</span>
-                {e.logo && (
-                  <span className="org-logo">
-                    {e.logo.startsWith('/')
-                      ? <img src={e.logo} alt={`${e.org} logo`} loading="lazy" />
-                      : <FaMedium aria-label={`${e.org} logo`} />}
-                  </span>
-                )}
-                <div>
-                  <div className="meta">{e.when} · {e.type}</div>
-                  <h4>{e.role}</h4>
-                  <p className="muted">{e.org}</p>
-                  <p>{e.description}</p>
-                  <ul className="tags">{e.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <h3 className="sub">Education</h3>
-          <div className="grid edu-grid">
-            {education.map((e) => (
-              <div key={e.school} className="card col">
-                {e.image && <img className="edu-img" src={e.image} alt={e.imageAlt} style={{ objectPosition: e.imagePos }} loading="lazy" />}
-                <div className="meta">{e.when}</div>
-                <h4>{e.degree}</h4>
-                {e.badge && <span className="badge">{e.badge}</span>}
-                <p className="muted">{e.school}{e.grade && ` · ${e.grade}`}</p>
-                <p className="small">{e.courses}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="writing" className="section">
-          <Heading>Writing</Heading>
-          <p className="muted pub-line"><img className="pub-logo" src="/towards-ai.png" alt="" width="22" height="22" /> Published in the Towards AI publication on Medium.</p>
-          <div className="grid two-col">
-            {articles.map((a) => (
-              <article key={a.title} className="card col">
-                <div className="meta pub-meta"><img className="pub-logo" src="/towards-ai.png" alt="Towards AI logo" width="22" height="22" />{a.publication} · {a.series}</div>
-                <h4>{a.title}</h4>
-                <p>{a.description}</p>
-                <p className="links"><a href={a.link} target="_blank" rel="noreferrer"><FaMedium /> Read on Medium →</a></p>
-              </article>
-            ))}
-          </div>
         </section>
 
         <section id="certifications" className="section">
@@ -371,8 +332,47 @@ function Portfolio({ theme, setTheme }) {
         </section>
         )}
 
+        <section id="journey" className="section">
+          <Heading>Experience &amp; Education</Heading>
+          <h3 className="sub">Experience</h3>
+          <ol className="timeline">
+            {experience.map((e, i) => (
+              <li key={e.role} className="card">
+                <span className="num">{String(i + 1).padStart(2, '0')}</span>
+                {e.logo && (
+                  <span className="org-logo">
+                    {e.logo.startsWith('/')
+                      ? <img src={e.logo} alt={`${e.org} logo`} loading="lazy" />
+                      : <FaMedium aria-label={`${e.org} logo`} />}
+                  </span>
+                )}
+                <div>
+                  <div className="meta">{e.when} · {e.type}</div>
+                  <h4>{e.role}</h4>
+                  <p className="muted">{e.org}</p>
+                  <p>{e.description}</p>
+                  <ul className="tags">{e.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <h3 className="sub">Education</h3>
+          <div className="grid edu-grid">
+            {education.map((e) => (
+              <div key={e.school} className="card col">
+                {e.image && <img className="edu-img" src={e.image} alt={e.imageAlt} style={{ objectPosition: e.imagePos }} loading="lazy" />}
+                <div className="meta">{e.when}</div>
+                <h4>{e.degree}</h4>
+                {e.badge && <span className="badge">{e.badge}</span>}
+                <p className="muted">{e.school}{e.grade && ` · ${e.grade}`}</p>
+                <p className="small">{e.courses}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section id="contact" className="section">
-          <Heading>Contact</Heading>
+          <Heading>Contact Information</Heading>
           <p>Open to AI/GenAI engineering roles and internships. The best way to reach me is email or LinkedIn.</p>
           <Socials />
           <Contact />
